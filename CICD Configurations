@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+ 
+    stages {
+        stage('Source Code Management') {
+            steps {
+                // Connect to your Git repository
+                git 'https://github.com/your-username/XYZWebApp.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Build your application (e.g., using Maven)
+                sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                // Run automated tests
+                sh 'mvn test'
+            }
+        }
+        stage('Deploy to Staging') {
+            steps {
+                // Deploy to a staging environment
+                sh 'deploy-to-staging.sh'
+            }
+        }
+        stage('Automated Acceptance Testing') {
+            steps {
+                // Run automated acceptance tests
+                sh 'run-acceptance-tests.sh'
+            }
+        }
+        stage('Deploy to Production') {
+            steps {
+                // Deploy to the production environment
+                sh 'deploy-to-production.sh'
+            }
+        }
+    }
+}
